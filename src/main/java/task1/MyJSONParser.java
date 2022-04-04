@@ -2,7 +2,6 @@ package task1;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -24,12 +23,11 @@ public class MyJSONParser {
 
     public static List<Employee> jsonToList(String json) throws ParseException {
         JSONParser parser = new JSONParser();
-        Object object = parser.parse(json);
-        JSONArray jsonArray = (JSONArray) object;
+        JSONArray jsonArray = (JSONArray) parser.parse(json);
 
         List<Employee> employees = new ArrayList<>();
         for (Object jsonObject : jsonArray) {
-            Employee employee = gson.fromJson((JsonElement) jsonObject, Employee.class);
+            Employee employee = gson.fromJson(jsonObject.toString(), Employee.class);
             employees.add(employee);
         }
         return employees;
